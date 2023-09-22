@@ -409,6 +409,9 @@ async function transferLabels(attachmentLabel = true, useLowerCase = true) {
 
 // ----------------------------------------------------------------------------
 
+
+const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+
 /**
  * Transfer any issues and their comments that exist in GitLab that do not exist in GitHub.
  */
@@ -434,6 +437,11 @@ async function transferIssues() {
 
   if (settings.usePlaceholderIssuesForMissingIssues) {
     for (let i = 0; i < issues.length; i++) {
+
+      console.log(`In placeholder stuff... Sleeping for 10 seconds...`);
+      await sleep(10000);
+      console.log(`Continuing...`);
+
       // GitLab issue internal Id (iid)
       let expectedIdx = i + 1;
 
@@ -457,6 +465,11 @@ async function transferIssues() {
 
   // if a GitLab issue does not exist in GitHub repo, create it -- along with comments.
   for (let issue of issues) {
+
+    console.log(`In creating issues stuff... Sleeping for 10 seconds...`);
+    await sleep(1000);
+    console.log(`Continuing...`);
+
     // try to find a GitHub issue that already exists for this GitLab issue
     let githubIssue = githubIssues.find(
       i => i.title.trim() === issue.title.trim()
